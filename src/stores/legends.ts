@@ -1,6 +1,6 @@
 import { ref, computed, reactive } from 'vue'
 import { defineStore } from 'pinia'
-import axios from 'axios'
+import { api } from '@/api'
 import type { Legend, LegendFilters } from '@/types/legend'
 
 
@@ -40,17 +40,40 @@ export const useLegendsStore = defineStore('legends', () => {
   });
 
 
-  // Action to fetch legends from the API
+  // Actions to fetch legends from the API
   const fetchLegends = async () => {
     try {
       isLoading.value = true;
-      const { data } = await axios.get<Legend[]>('/api/legends');
+      const { data } = await api.get<Legend[]>('/legends');
       legends.value = data;
     } catch (err) {
       error.value = (err as Error).message;
     } finally {
       isLoading.value = false;
     }
+  };
+
+  const deleteLegend = async (id: number) => {
+    try {
+      await api.delete(`/legends/${id}`);
+      legends.value = legends.value.filter(legend => legend.id !== id);
+    } catch (err) {
+      error.value = (err as Error).message;
+      throw err;
+    }
+  }
+
+  return {
+    legends,
+    filteredLegends,
+    filters,
+    isLoading,
+    error,
+    fetchLegends,
+    // uploadImage,
+    // addLegend,
+    deleteLegend,
+    // updateLegend
   };
 })
 
