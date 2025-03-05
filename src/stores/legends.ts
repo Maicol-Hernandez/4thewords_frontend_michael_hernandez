@@ -61,7 +61,16 @@ export const useLegendsStore = defineStore('legends', () => {
       error.value = (err as Error).message;
       throw err;
     }
-  }
+  };
+
+  const updateLegend = async (legend: Legend) => {
+    try {
+
+    } catch (err) {
+      error.value = (err as Error).message;
+      throw err;
+    }
+  };
 
   return {
     legends,
