@@ -27,32 +27,48 @@ Este repositorio contiene la interfaz de usuario para la gestión de leyendas, d
 
 ## Instalación
 
-1. Clonar el repositorio:
+1. **Clonar el repositorio:**
 
-```bash
-git clone https://github.com/tu-usuario/4thewords-frontend.git
-cd 4thewords-frontend
-```
+   ```bash
+   git clone https://github.com/Maicol-Hernandez/4thewords_frontend_Maicol_Hernandez.git
+   cd 4thewords_frontend_Maicol_Hernandez
+   ```
 
-2. Instalar dependencias:
+2. **Instalar dependencias:**
 
-```bash
-npm install
-# o
-yarn install
-```
+   Utilizando npm:
 
-3. Configurar variables de entorno (crear `.env`):
+   ```bash
+   npm install
+   ```
 
-```env
-VITE_API_URL=http://localhost:8080/api/v1
-```
+   O utilizando yarn:
 
-4. Iniciar servidor de desarrollo:
+   ```bash
+   yarn install
+   ```
 
-```bash
-npm run dev
-```
+3. **Configurar variables de entorno (crear un archivo `.env` en la raíz):**
+
+   ```env
+   VITE_API_URL=http://localhost:8080
+   ```
+
+4. **Iniciar el servidor de desarrollo:**
+
+   Con Node:
+
+   ```bash
+   npm run dev
+   ```
+
+   O, alternativamente, usando Docker Compose:
+
+   ```bash
+   docker compose up --build
+   ```
+
+   El proyecto estará disponible en [http://localhost:3000](http://localhost:3000) (o en el puerto configurado en `vite.config.js`).
 
 ## Estructura del Proyecto
 
