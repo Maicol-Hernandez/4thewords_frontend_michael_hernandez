@@ -7,7 +7,11 @@
 
         <LegendFilter v-model="store.filters" />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-if="store.isLoading" class="flex justify-center items-center" style="min-height: 300px">
+            <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+                animationDuration=".5s" aria-label="Custom ProgressSpinner" />
+        </div>
+        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <LegendCard v-for="legend in filteredLegends" :key="legend.id" :legend="legend" @edit="handleEdit"
                 @delete="handleDelete" />
         </div>

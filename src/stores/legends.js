@@ -35,16 +35,23 @@ export const useLegendsStore = defineStore('legends', () => {
     })
 
     const fetchLegends = async () => {
-        const { data } = await axios.get('/legends')
-        legends.value = data
+        isLoading.value = true
+        try {
+            const response = await axios.get('/legends')
+            legends.value = response.data
+        } catch (err) {
+            error.value = err.message
+            throw err
+        } finally {
+            isLoading.value = false
+        }
     }
 
     const showLegend = async (legendId) => {
+        isLoading.value = true
         try {
-            isLoading.value = true
             const { data } = await axios.get(`/legends/${legendId}`)
             currentLegend.value = data
-            return data
         } catch (err) {
             error.value = 'Error al obtener la leyenda'
             throw err
@@ -54,8 +61,8 @@ export const useLegendsStore = defineStore('legends', () => {
     }
 
     const updateLegend = async (id, formData) => {
+        isLoading.value = true
         try {
-            isLoading.value = true
             const { data } = await axios.put(`/legends/${id}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -66,24 +73,29 @@ export const useLegendsStore = defineStore('legends', () => {
             if (index !== -1) {
                 legends.value.splice(index, 1, data)
             }
+
             currentLegend.value = data
-            return data
+
+        } catch (err) {
+            error.value = err.message
+            throw err
         } finally {
             isLoading.value = false
         }
     }
 
     const createLegend = async (legend) => {
+        isLoading.value = true
         try {
-            isLoading.value = true
             const { data } = await axios.post('/legends', legend, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             })
             legends.value.push(data)
-        } catch (error) {
-            throw new Error('Error al crear la leyenda')
+        } catch (err) {
+            error.value = err.message
+            throw err
         } finally {
             isLoading.value = false
         }
@@ -97,12 +109,13 @@ export const useLegendsStore = defineStore('legends', () => {
     }
 
     const deleteLegend = async (id) => {
+        isLoading.value = true
         try {
-            isLoading.value = true
             await axios.delete(`/legends/${id}`)
             legends.value = legends.value.filter(l => l.id !== id)
-        } catch (error) {
-            throw new Error('Error al eliminar la leyenda')
+        } catch (err) {
+            error.value = err.message
+            throw err
         } finally {
             isLoading.value = false
         }

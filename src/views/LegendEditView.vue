@@ -7,12 +7,12 @@
             <p class="text-gray-600 mt-2">Complete todos los campos requeridos</p>
         </div>
 
-        <div v-if="isSubmitting || !store.currentLegend" class="flex justify-center items-center"
+        <div v-if="store.isLoading || !store.currentLegend" class="flex justify-center items-center"
             style="min-height: 300px">
             <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="4" fill="#EEEEEE" animationDuration=".5s" />
         </div>
         <div v-else>
-            <LegendForm :loading="isSubmitting" :legend="store.currentLegend" @submit="handleSubmit"
+            <LegendForm :loading="store.isLoading" :legend="store.currentLegend" @submit="handleSubmit"
                 @cancel="router.push('/legends')" />
         </div>
 
@@ -39,9 +39,6 @@ const props = defineProps({
 
 onMounted(async () => {
     try {
-
-        isSubmitting.value = true
-
         if (!props.id) throw new Error('ID inválido')
 
         await store.showLegend(props.id)
@@ -50,7 +47,6 @@ onMounted(async () => {
             throw new Error('Leyenda no encontrada')
         }
     } catch (error) {
-        isSubmitting.value = false
         toast.add({
             severity: 'error',
             summary: 'Error',
@@ -58,8 +54,6 @@ onMounted(async () => {
             life: 3000
         })
         router.push('/legends')
-    } finally {
-        isSubmitting.value = false
     }
 })
 
