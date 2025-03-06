@@ -12,23 +12,24 @@
                 @delete="handleDelete" />
         </div>
 
-        <Toast />
-        <ConfirmDialog></ConfirmDialog>
+        <ConfirmDialog />
     </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
-import { useLegendsStore } from '../stores/legends'
+import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
+
 import { useConfirm } from 'primevue/useconfirm'
-import ConfirmDialog from 'primevue/confirmdialog';
-import Toast from 'primevue/toast';
 import { useToast } from 'primevue/usetoast'
+
+import { useLegendsStore } from '../stores/legends'
+
 import LegendCard from '../components/legends/LegendCard.vue'
-// import ConfirmDialog from '../components/ui/ConfirmDialog.vue'
 import LegendFilter from '../components/legends/LegendFilter.vue'
+import ConfirmDialog from '../components/ui/ConfirmDialog.vue'
+
 
 const deleteId = ref(null)
 

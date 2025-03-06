@@ -1,3 +1,8 @@
-<template></template>
+<template>
+    <Toast />
+    <ConfirmDialog></ConfirmDialog>
+</template>
 
-<script setup></script>
+<script setup>
+import ConfirmDialog from 'primevue/confirmdialog';
+</script>
