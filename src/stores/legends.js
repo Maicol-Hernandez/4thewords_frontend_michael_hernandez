@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import axios from '@/api/axios'
 
 export const useLegendsStore = defineStore('legends', () => {
+    const currentLegend = ref(null)
     const legends = ref([])
     const filters = ref({
         name: '',
@@ -36,6 +37,40 @@ export const useLegendsStore = defineStore('legends', () => {
     const fetchLegends = async () => {
         const { data } = await axios.get('/legends')
         legends.value = data
+    }
+
+    const showLegend = async (legendId) => {
+        try {
+            isLoading.value = true
+            const { data } = await axios.get(`/legends/${legendId}`)
+            currentLegend.value = data
+            return data
+        } catch (err) {
+            error.value = 'Error al obtener la leyenda'
+            throw err
+        } finally {
+            isLoading.value = false
+        }
+    }
+
+    const updateLegend = async (id, formData) => {
+        try {
+            isLoading.value = true
+            const { data } = await axios.put(`/legends/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+
+            const index = legends.value.findIndex(l => l.id === id)
+            if (index !== -1) {
+                legends.value.splice(index, 1, data)
+            }
+            currentLegend.value = data
+            return data
+        } finally {
+            isLoading.value = false
+        }
     }
 
     const createLegend = async (legend) => {
@@ -78,12 +113,15 @@ export const useLegendsStore = defineStore('legends', () => {
     }
 
     return {
+        currentLegend,
         legends,
         filteredLegends,
         filters,
         isLoading,
         error,
         fetchLegends,
+        showLegend,
+        updateLegend,
         createLegend,
         uploadImage,
         deleteLegend,

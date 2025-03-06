@@ -180,10 +180,6 @@ const onFormSubmit = async ({ values, valid }) => {
             formData.append('image', selectedImage.value)
         }
 
-        for (const [key, value] of formData.entries()) {
-            console.log(key, value)
-        }
-
         emit('submit', formData)
     } catch (error) {
         console.error('Error en el formulario:', error)
