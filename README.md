@@ -108,7 +108,7 @@ export default defineConfig({
 
 | Variable           | Descripción                     | Valor por Defecto           |
 |--------------------|---------------------------------|-----------------------------|
-| VITE_API_URL       | URL base del backend            | <http://localhost:8080/api/v1>|
+| VITE_API_URL       | URL base del backend            | <http://localhost:8080>|
 | VITE_APP_TITLE     | Título de la aplicación         | 4thewords                   |
 
 ## Scripts Principales
