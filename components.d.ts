@@ -15,6 +15,7 @@ declare module 'vue' {
     Dialog: typeof import('primevue/dialog')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
     FileUpload: typeof import('./src/components/ui/FileUpload.vue')['default']
+    FileUploadInput: typeof import('./src/components/ui/FileUploadInput.vue')['default']
     Form: typeof import('@primevue/forms/form')['default']
     FormField: typeof import('@primevue/forms/formfield')['default']
     InputText: typeof import('primevue/inputtext')['default']

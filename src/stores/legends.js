@@ -38,6 +38,22 @@ export const useLegendsStore = defineStore('legends', () => {
         legends.value = data
     }
 
+    const createLegend = async (legend) => {
+        try {
+            isLoading.value = true
+            const { data } = await axios.post('/legends', legend, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            legends.value.push(data)
+        } catch (error) {
+            throw new Error('Error al crear la leyenda')
+        } finally {
+            isLoading.value = false
+        }
+    }
+
     const uploadImage = async (file) => {
         const formData = new FormData()
         formData.append('file', file)
@@ -68,6 +84,7 @@ export const useLegendsStore = defineStore('legends', () => {
         isLoading,
         error,
         fetchLegends,
+        createLegend,
         uploadImage,
         deleteLegend,
         setFilters,
