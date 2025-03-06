@@ -1,7 +1,5 @@
-<!-- src/components/legends/LegendCard.vue -->
 <template>
     <Card class="shadow-lg hover:shadow-xl transition-all duration-300 group relative rounded-xl overflow-hidden">
-        <!-- Header: Imagen y categoría -->
         <template #header>
             <div class="relative h-48 bg-gray-100 overflow-hidden">
                 <img :src="legend.image_url || '/placeholder-legend.jpg'" :alt="'Imagen de ' + legend.name"
@@ -12,7 +10,6 @@
             </div>
         </template>
 
-        <!-- Title: Nombre de la leyenda -->
         <template #title>
             <div class="flex justify-between items-center text-xl font-bold text-gray-800 mb-2">
                 <span class="truncate">{{ legend.name }}</span>
@@ -25,7 +22,6 @@
             </div>
         </template>
 
-        <!-- Subtitle: Ubicación -->
         <template #subtitle>
             <div class="flex items-center space-x-2 text-sm text-gray-600 mb-3">
                 <i class="pi pi-map-marker text-primary-500"></i>
@@ -33,7 +29,6 @@
             </div>
         </template>
 
-        <!-- Content: Descripción y fecha -->
         <template #content>
             <div class="space-y-3">
                 <div class="text-gray-700 text-sm line-clamp-3 hover:line-clamp-none transition-all cursor-default">
@@ -50,7 +45,6 @@
             </div>
         </template>
 
-        <!-- Footer: Acciones adicionales (opcional) -->
         <template #footer>
             <div class="flex justify-end">
                 <Tag :value="absoluteDate(legend.created_at)" icon="pi pi-calendar" severity="info"

@@ -1,23 +1,36 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LegendListView from '../views/LegendListView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'legends',
-      component: LegendListView,
+      redirect: '/legends',
     },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (About.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import('../views/AboutView.vue'),
-    // },
-  ],
+    {
+      path: '/legends',
+      name: 'legends-list',
+      component: () => import('../views/LegendListView.vue'),
+      meta: { title: 'Listado de Leyendas' }
+    },
+    {
+      path: '/legends/create',
+      name: 'legend-create',
+      component: () => import('../views/LegendCreateView.vue'),
+      meta: { title: 'Crear Nueva Leyenda' }
+    },
+    {
+      path: '/legends/edit/:id',
+      name: 'legend-edit',
+      component: () => import('../views/LegendEditView.vue'),
+      props: true,
+      meta: { title: 'Editar Leyenda' }
+    }
+  ]
+})
+
+router.beforeEach((to) => {
+  document.title = to.meta.title || 'Leyendas Costarricenses'
 })
 
 export default router

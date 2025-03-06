@@ -2,7 +2,7 @@
     <div class="container mx-auto p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-4xl font-bold text-primary-600">Leyendas Costarricenses</h1>
-            <Button label="Nueva Leyenda" icon="pi pi-plus" @click="router.push('/crear')" />
+            <Button label="Nueva Leyenda" icon="pi pi-plus" @click="router.push({ name: 'legend-create' })" />
         </div>
 
         <LegendFilter v-model="store.filters" />
@@ -17,13 +17,15 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 import { useLegendsStore } from '../stores/legends'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
 import LegendCard from '../components/legends/LegendCard.vue'
 import ConfirmDialog from '../components/ui/ConfirmDialog.vue'
 import LegendFilter from '../components/legends/LegendFilter.vue'
 
+const router = useRouter()
 const store = useLegendsStore()
 const { filteredLegends } = storeToRefs(store)
 
@@ -32,7 +34,10 @@ const handleDelete = async (id) => {
 }
 
 const handleEdit = (id) => {
-    // router.push(`/editar/${id}`)
+    router.push({
+        name: 'legend-edit',
+        params: { id }
+    })
 }
 
 onMounted(() => {
