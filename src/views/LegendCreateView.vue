@@ -7,7 +7,7 @@
             <p class="text-gray-600 mt-2">Complete todos los campos requeridos</p>
         </div>
 
-        <LegendForm :loading="isSubmitting" @submit="handleSubmit" @cancel="router.push('/legends')" />
+        <LegendForm :loading="store.isLoading" @submit="handleSubmit" @cancel="router.push('/legends')" />
         <Toast />
     </div>
 </template>
@@ -21,14 +21,11 @@ import LegendForm from '../components/legends/LegendForm.vue';
 
 const router = useRouter()
 const store = useLegendsStore()
-const isSubmitting = ref(false)
 
 const toast = useToast()
 
 const handleSubmit = async (formData) => {
     try {
-        isSubmitting.value = true
-
         await store.createLegend(formData)
         router.push('/legends')
         toast.add({
@@ -45,9 +42,8 @@ const handleSubmit = async (formData) => {
             detail: error.message || 'Ocurrió un error al guardar',
             life: 3000
         })
-    } finally {
-        isSubmitting.value = false
     }
+
 }
 
 </script>

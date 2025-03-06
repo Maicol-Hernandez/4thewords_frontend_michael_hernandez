@@ -31,7 +31,6 @@ import LegendForm from '../components/legends/LegendForm.vue';
 const router = useRouter()
 const store = useLegendsStore()
 const toast = useToast()
-const isSubmitting = ref(false)
 
 const props = defineProps({
     id: String
@@ -59,8 +58,6 @@ onMounted(async () => {
 
 const handleSubmit = async (formData) => {
     try {
-        isSubmitting.value = true
-
         if (props.id) {
             await store.updateLegend(props.id, formData)
         } else {
@@ -82,8 +79,7 @@ const handleSubmit = async (formData) => {
             detail: error.message || 'Ocurrió un error al guardar',
             life: 3000
         })
-    } finally {
-        isSubmitting.value = false
+
     }
 }
 
