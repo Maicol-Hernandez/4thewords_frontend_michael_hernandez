@@ -12,7 +12,14 @@ import { PrimeVueResolver } from '@primevue/auto-import-resolver'
 export default defineConfig({
   server: {
     host: '0.0.0.0',
-    port: 5173,
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
   },
   hmr: {
     host: 'localhost',
@@ -22,9 +29,9 @@ export default defineConfig({
     vueDevTools(),
     AutoImport({
       imports: ['vue', 'vue-router', 'pinia', 'vitest'],
-      dts: './src/auto-imports.d.ts', // 檔案位置
+      dts: './src/auto-imports.d.ts',
       eslintrc: {
-        enabled: true, // 改為 true 會自動生成 unplugin-auto-import 的規則設定
+        enabled: true,
       },
     }),
     Components({

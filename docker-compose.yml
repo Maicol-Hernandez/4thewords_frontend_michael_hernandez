@@ -3,7 +3,7 @@ services:
     build: .
     container_name: vue-app
     ports:
-      - '5173:5173'
+      - '3000:3000'
     volumes:
       - .:/app
       - node_modules:/app/node_modules
