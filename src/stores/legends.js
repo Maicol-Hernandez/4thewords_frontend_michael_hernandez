@@ -38,9 +38,15 @@ export const useLegendsStore = defineStore('legends', () => {
     }
 
     const deleteLegend = async (id) => {
-        await confirm.delete()
-        await axios.delete(`/legends/${id}`)
-        legends.value = legends.value.filter(l => l.id !== id)
+        try {
+            isLoading.value = true
+            await axios.delete(`/legends/${id}`)
+            legends.value = legends.value.filter(l => l.id !== id)
+        } catch (error) {
+            throw new Error('Error al eliminar la leyenda')
+        } finally {
+            isLoading.value = false
+        }
     }
 
     const setFilters = (newFilters) => {

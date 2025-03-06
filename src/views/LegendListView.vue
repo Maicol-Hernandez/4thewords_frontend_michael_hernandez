@@ -12,7 +12,8 @@
                 @delete="handleDelete" />
         </div>
 
-        <!-- <ConfirmDialog /> -->
+        <Toast />
+        <ConfirmDialog></ConfirmDialog>
     </div>
 </template>
 
@@ -21,16 +22,62 @@ import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { useLegendsStore } from '../stores/legends'
 import { storeToRefs } from 'pinia'
+import { useConfirm } from 'primevue/useconfirm'
+import ConfirmDialog from 'primevue/confirmdialog';
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast'
 import LegendCard from '../components/legends/LegendCard.vue'
-import ConfirmDialog from '../components/ui/ConfirmDialog.vue'
+// import ConfirmDialog from '../components/ui/ConfirmDialog.vue'
 import LegendFilter from '../components/legends/LegendFilter.vue'
 
-const router = useRouter()
+const deleteId = ref(null)
+
 const store = useLegendsStore()
 const { filteredLegends } = storeToRefs(store)
 
+const router = useRouter()
+const confirm = useConfirm()
+const toast = useToast()
+
+
 const handleDelete = async (id) => {
-    await store.deleteLegend(id)
+    deleteId.value = id
+
+    confirm.require({
+        message: '¿Estás seguro de que deseas eliminar esta leyenda?',
+        header: 'Confirmar Eliminación',
+        icon: 'pi pi-exclamation-triangle',
+        acceptLabel: 'Eliminar',
+        rejectLabel: 'Cancelar',
+        accept: async () => {
+            try {
+                await store.deleteLegend(deleteId.value)
+                toast.add({
+                    severity: 'success',
+                    summary: 'Eliminado',
+                    detail: 'La leyenda se eliminó correctamente',
+                    life: 3000
+                })
+            } catch (error) {
+                toast.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: error.message || 'Ocurrió un error al eliminar la leyenda',
+                    life: 3000
+                })
+            } finally {
+                deleteId.value = null
+            }
+        },
+        reject: () => {
+            toast.add({
+                severity: 'info',
+                summary: 'Cancelado',
+                detail: 'La eliminación se canceló',
+                life: 3000
+            })
+        }
+    })
 }
 
 const handleEdit = (id) => {
