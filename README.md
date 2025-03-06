@@ -1,8 +1,8 @@
-(Due to technical issues, the search service is temporarily unavailable.)
-
 # 4thewords - Frontend
 
 Este repositorio contiene la interfaz de usuario para la gestión de leyendas, desarrollada con Vue 3 y Vite. La aplicación permite crear, editar, visualizar y eliminar leyendas, integrando componentes modernos de PrimeVue y una gestión de estado eficiente con Pinia.
+
+![Texto alternativo](public/app.png)
 
 ## Características Principales
 
