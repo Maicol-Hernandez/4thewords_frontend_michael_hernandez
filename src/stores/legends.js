@@ -6,12 +6,13 @@ export const useLegendsStore = defineStore('legends', () => {
     const legends = ref([])
     const filters = ref({
         name: '',
+        created_at: '',
         category: '',
         province: '',
         canton: '',
-        district: '',
-        date: ''
+        district: null,
     })
+
     const isLoading = ref(false)
     const error = ref(null)
     const locations = ref(/* Datos de provincias */)
@@ -20,6 +21,13 @@ export const useLegendsStore = defineStore('legends', () => {
         return legends.value.filter(legend => {
             return Object.entries(filters.value).every(([key, value]) => {
                 if (!value) return true
+
+                if (key === 'created_at') {
+                    const legendDate = new Date(legend.created_at).toISOString().split('T')[0]
+                    const filterDate = new Date(value).toISOString().split('T')[0]
+                    return legendDate === filterDate
+                }
+
                 return String(legend[key]).toLowerCase().includes(value.toLowerCase())
             })
         })
