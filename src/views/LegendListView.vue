@@ -1,19 +1,20 @@
 <template>
-    <div class="container mx-auto p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h1 class="text-4xl font-bold text-primary-600">Leyendas Costarricenses</h1>
-            <Button label="Nueva Leyenda" icon="pi pi-plus" @click="router.push({ name: 'legend-create' })" />
+    <div class="container mx-auto px-3 sm:px-6 py-4 sm:py-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-6">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-600">Leyendas Costarricenses</h1>
+            <Button label="Nueva Leyenda" icon="pi pi-plus" @click="router.push({ name: 'legend-create' })"
+                class="w-full sm:w-auto" />
         </div>
 
-        <LegendFilter v-model="store.filters" />
+        <LegendFilter v-model="store.filters" class="mb-4" />
 
-        <div v-if="store.isLoading" class="flex justify-center items-center" style="min-height: 300px">
-            <ProgressSpinner style="width: 50px; height: 50px" strokeWidth="8" fill="transparent"
+        <div v-if="store.isLoading" class="flex justify-center items-center my-8" style="min-height: 200px">
+            <ProgressSpinner style="width: 40px; height: 40px" strokeWidth="8" fill="transparent"
                 animationDuration=".5s" aria-label="Custom ProgressSpinner" />
         </div>
-        <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             <LegendCard v-for="legend in filteredLegends" :key="legend.id" :legend="legend" @edit="handleEdit"
-                @delete="handleDelete" />
+                @delete="handleDelete" class="h-full" />
         </div>
 
         <ConfirmDialog />
