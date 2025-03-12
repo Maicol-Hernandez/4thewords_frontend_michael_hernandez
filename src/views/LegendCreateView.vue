@@ -13,9 +13,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { useLegendsStore, isLoading } from '../stores/legends'
+import { useLegendsStore } from '../stores/legends'
 import { useToast } from 'primevue/usetoast'
 import LegendForm from '../components/legends/LegendForm.vue';
 
