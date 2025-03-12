@@ -64,8 +64,8 @@
             <div class="mt-4">
                 <label class="block mb-2 font-semibold">Seleccionar imagen</label>
                 <input type="file" accept="image/*" @change="handleFileInput" class="block" />
-                <div v-if="imagePreview || props.legend.image_url" class="mt-4">
-                    <img :src="imagePreview || props.legend.image_url" alt="Vista previa"
+                <div v-if="imagePreview || props?.legend?.image_url" class="mt-4">
+                    <img :src="imagePreview || props?.legend?.image_url" alt="Vista previa"
                         class="border rounded-lg w-full h-48 object-cover" />
                 </div>
             </div>
